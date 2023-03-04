@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuardarImagenSQLServer", "GuardarImagenSQLServer\GuardarImagenSQLServer.csproj", "{946A69B7-D49B-4A5D-A997-625C4CC417AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{946A69B7-D49B-4A5D-A997-625C4CC417AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{946A69B7-D49B-4A5D-A997-625C4CC417AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{946A69B7-D49B-4A5D-A997-625C4CC417AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{946A69B7-D49B-4A5D-A997-625C4CC417AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6DF9077C-300C-4C32-9CDE-9D0A3FF9451B}
+	EndGlobalSection
+EndGlobal
