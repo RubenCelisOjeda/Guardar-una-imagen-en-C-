@@ -22,12 +22,14 @@ namespace GuardarImagenSQLServer
         {
             string path = @"..\..\File\Image\este.png";
 
-            var imageBase64sString = ConvertBase64String(path);
+            //var imageBase64sString = ConvertBase64String(path);
+            var imageArrayByte = ConvertArrayByte(path);
 
-            var resonse = this.AddImagenString(imageBase64sString);
+            //var resonseString = this.AddImagenString(imageBase64sString);
+            var resonseArrayByte = this.AddImagenArrayByte(imageArrayByte);
 
-            this.SaveImgLocal(resonse);
-            //this.SaveImgFile(resonse);
+            this.SaveImgFileArrayByte(resonseArrayByte);
+            //this.SaveImgFile(resonseString);
         }
 
         public string AddImagenString(string pImagenString)
@@ -47,20 +49,20 @@ namespace GuardarImagenSQLServer
             }
         }
 
-        public string AddImagenByte(string pImagenString)
+        public byte[] AddImagenArrayByte(byte[] pImagenArrayByte)
         {
             using (var connection = new SqlConnection(ConnectioString))
             {
                 connection.Open();
 
-                const string procedure = @"INSERT INTO IMAGEN_USUARIO (ImagenString) VALUES (@pImagen)";
+                const string procedure = @"INSERT INTO IMAGEN_USUARIO (Imagen) VALUES (@pImagen)";
 
                 var parameters = new DynamicParameters();
-                parameters.Add("@pImagen", pImagenString, DbType.String);
+                parameters.Add("@pImagen", pImagenArrayByte, DbType.Binary);
 
 
                 var response = connection.Execute(procedure, parameters, commandType: CommandType.Text);
-                return pImagenString;
+                return pImagenArrayByte;
             }
         }
 
@@ -76,6 +78,17 @@ namespace GuardarImagenSQLServer
             return base64string;
         }
 
+        public byte[] ConvertArrayByte(string pImagenString)
+        {
+            byte[] arrayByte = null;
+
+            if (pImagenString.Trim().Length > 0)
+            {
+                arrayByte = File.ReadAllBytes(pImagenString);
+            }
+            return arrayByte;
+        }
+
         public  void SaveImgFile(string pImagenString)
         {
             byte[] arrayImagen = Convert.FromBase64String(pImagenString);
@@ -86,7 +99,21 @@ namespace GuardarImagenSQLServer
 
             using (MemoryStream ms = new MemoryStream(arrayImagen))
             {
-                var drawingImage = Image.FromStream(ms);
+                var img = Image.FromStream(ms);
+                img.Save(imagePath, ImageFormat.Png);
+            }
+        }
+
+        public void SaveImgFileArrayByte(byte[] pImagenArrayByte)
+        {
+            byte[] arrayImagen = pImagenArrayByte;
+
+            string folderPath = @"..\..\Upload\";
+            string fileNamelocal = "Imagen.png";
+            string imagePath = folderPath + fileNamelocal;
+
+            using (MemoryStream ms = new MemoryStream(arrayImagen))
+            {
                 var img = Image.FromStream(ms);
                 img.Save(imagePath, ImageFormat.Png);
             }
